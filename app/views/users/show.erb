@@ -1,0 +1,12 @@
+Username: <%= @user.username %>
+Email: <%= @user.email %>
+Password: <%= @user.password %>
+<br>
+Songs: <%@user.songs.each do |song|%>
+<li> <%=song.title%></li>
+<% end %>
+
+<form method="POST" action="/users/<%=@user.id%>">
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="delete" />
+</form>
