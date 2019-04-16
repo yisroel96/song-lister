@@ -3,12 +3,10 @@ Artist: <%= @song.artist %>
 Genre: <%= @song.genre %>
 
 <form method="get" action="/songs/<%=@song.id%>/edit">
-  <!-- <input type="hidden" name="_method" value="PATCH"> -->
   <input type="submit" value="edit">
 </form>
 
-
-<form method="post" action="/songs/<%=@song.id%>">
-  <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <input type="submit" id="sumbit" value="delete">
+<form action="/songs/<%=@song.id%>" method="post">
+  <input type="hidden" value="delete" name="_method">
+  <input type="submit" value="delete">
 </form>
