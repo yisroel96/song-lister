@@ -4,9 +4,9 @@ class SongsController < ApplicationController
     @songs = Song.all
     erb :'songs/index'
   end
-  
+
   get '/songs/new' do #loads new form
-    erb :new
+    erb :'songs/new'
   end
 
   post '/songs' do  #creates a song
@@ -16,16 +16,24 @@ class SongsController < ApplicationController
 
   get '/songs/:id' do  #loads show page
     @song = Song.find_by_id(params[:id])
-    erb :'songs/show'
+    if @song
+      erb :'songs/show'
+    else
+      redirect '/songs'
+    end
   end
 
   get '/songs/:id/edit' do #loads edit form
-    @song = Song.find_by_id(params[:id])
-    erb :'songs/edit'
-  end
+     @song = Song.find_by_id(params[:id])
+     if @song
+       erb :'songs/edit'
+     else
+       redirect '/songs'
+     end
+   end
 
   patch '/songs/:id' do  #updates a song
-    binding.pry
+    # binding.pry
     @song = Song.find_by_id(params[:id])
     @song.title = params[:title]
     @song.artist = params[:artist]
@@ -35,7 +43,7 @@ class SongsController < ApplicationController
   end
 
   delete '/songs/:id' do #destroy action
-    binding.pry
+    # binding.pry
     @song = Song.find_by_id(params[:id])
     @song.delete
     redirect to '/songs'
