@@ -1,5 +1,10 @@
 class SongsController < ApplicationController
 
+  get '/songs' do #loads index page
+    @songs = Song.all
+    erb :'songs/index'
+  end
+  
   get '/songs/new' do #loads new form
     erb :new
   end
@@ -9,11 +14,6 @@ class SongsController < ApplicationController
     redirect to "/songs/#{@song.id}"
   end
 
-  get '/songs' do #loads index page
-    @songs = Song.all
-    erb :'songs/index'
-  end
-
   get '/songs/:id' do  #loads show page
     @song = Song.find_by_id(params[:id])
     erb :'songs/show'
@@ -21,7 +21,6 @@ class SongsController < ApplicationController
 
   get '/songs/:id/edit' do #loads edit form
     @song = Song.find_by_id(params[:id])
-    binding.pry
     erb :'songs/edit'
   end
 
@@ -34,8 +33,6 @@ class SongsController < ApplicationController
     @song.save
     redirect to "/songs/#{@song.id}"
   end
-
-
 
   delete '/songs/:id' do #destroy action
     binding.pry
