@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: a75dfa79dac413e2dbcbcbfaf2c930e81256cdf0
+  revision: 59a92644d5583828add1c68351074f6e52c6deb6
   branch: master
   specs:
     faker (1.9.3)
@@ -38,7 +38,7 @@ GEM
     bcrypt (3.1.12)
     bond (0.5.1)
     builder (3.2.3)
-    capybara (3.16.1)
+    capybara (3.16.2)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -107,6 +107,8 @@ GEM
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     sqlite3 (1.3.13)
     strings (0.1.5)
       strings-ansi (~> 0.1)
@@ -157,6 +159,7 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-activerecord
+  sinatra-flash
   sqlite3 (~> 1.3.6)
   thin
   tux

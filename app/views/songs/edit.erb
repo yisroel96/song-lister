@@ -1,7 +1,7 @@
 <form action="/songs/<%=@song.id%>" method="post">
   <input type="hidden" value="patch" name="_method">
-  <input type="text" name="title" value="<%=@song.title%>" >
-  <input type="text" name="artist" value="<%=@song.artist%>" >
-  <input type="text" name="genre" value="<%=@song.genre%>" >
+  Title<input placeholder="Title" type="text" name="title" value="<%=@song.title%>" >
+  Artist<input placeholder="Artist" type="text" name="artist" value="<%=@song.artist%>" >
+  Genre<input placeholder="Genre" type="text" name="genre" value="<%=@song.genre%>" >
   <input type="submit" value="submit" >
 </form>

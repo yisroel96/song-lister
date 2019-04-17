@@ -41,6 +41,7 @@ class SongsController < ApplicationController
     @song = Song.new(params)
     @song.user_id = session[:user_id]
     if @song.save
+      #current_user.songs << @song
       redirect to "/songs/#{@song.id}"
     else
       redirect '/songs'

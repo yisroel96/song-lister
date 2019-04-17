@@ -16,23 +16,27 @@ class UsersController < ApplicationController
   end
 
   get '/login' do
+    flash[:login] = "Have An Account?"
     erb :'users/login'
   end
 
   post '/login' do
     #make sure email exists in db
-    user = User.find_by(username:params[:username])
+    @user = User.find_by(username:params[:username])
     #check if password is valid
-    if user && user.authenticate(params[:password])
-        session[:user_id] = user.id
+    if @user && @user.authenticate(params[:password])
+        session[:user_id] = @user.id
+          flash[:login] = "Login Successful!"
         redirect "/songs"
     else
+        flash[:login] = "Please Enter A Valid Username/Password, Or Simply Create An Account"
         redirect "/login"
     end
   end
 
   get '/logout' do
     session.clear
+    flash[:logout] = "Bye Bye!"
     redirect '/'
   end
 
@@ -67,6 +71,7 @@ class UsersController < ApplicationController
     # binding.pry
     @user = User.find_by_id(params[:id])
     @user.delete
+    session.clear
     redirect to '/'
   end
 

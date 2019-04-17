@@ -1,7 +1,7 @@
 <form action="/users/<%=@user.id%>" method="post">
   <input type="hidden" value="patch" name="_method">
-  <input type="text" name="username" value="<%=@user.username%>" >
-  <input type="email" name="email" value="<%=@user.email%>" >
-  Enter your original password<input type="password" name="user[password]">
+  Username<input placeholder="Username" type="text" name="username" value="<%=@user.username%>" >
+  Email<input placeholder="Email" type="email" name="email" value="<%=@user.email%>" >
+  Enter your original password<input placeholder="Password" type="password" name="user[password]">
   <input type="submit" value="submit" >
 </form>
