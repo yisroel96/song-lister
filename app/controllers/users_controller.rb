@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(params)
 
     if @user.save
-        @user = session[:user_id]
+        session[:user_id] = @user.id
       redirect '/songs'
     else
       redirect '/signup'
@@ -46,13 +46,17 @@ class UsersController < ApplicationController
   end
 
   patch '/users/:id' do
-    # binding.pry
-    @users = User.find_by_id(params[:id])
-    @users.username = params[:username]
-    @users.email = params[:email]
-    @users.save
-    redirect to "/users/#{@user.id}"
-  end
+      @user = User.find_by_id(params[:id])
+      if @user && @user.authenticate(params[:user][:password])
+        # binding.pry
+        @user.username = params[:username]
+        @user.email = params[:email]
+        @user.save
+        redirect to "/users/#{@user.id}"
+      else
+        redirect to "/users/#{@user.id}/edit"
+      end
+    end
 
   #destroys a user
   delete '/users/:id' do
