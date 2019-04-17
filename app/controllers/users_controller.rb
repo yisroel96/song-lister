@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    binding.pry
     erb :'users/signup'
   end
 
@@ -9,6 +8,7 @@ class UsersController < ApplicationController
     @user = User.new(params)
 
     if @user.save
+        @user = session[:user_id]
       redirect '/songs'
     else
       redirect '/signup'
