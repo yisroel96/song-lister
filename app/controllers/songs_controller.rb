@@ -38,8 +38,7 @@ class SongsController < ApplicationController
 
   #creates a song
   post '/songs' do
-    binding.pry
-    @song = Song.new(params[:title][:artist][:genre])
+    @song = Song.new(params)
     @song.user_id = session[:user_id]
     if @song.save
       redirect to "/songs/#{@song.id}"
