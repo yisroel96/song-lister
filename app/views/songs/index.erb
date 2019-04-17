@@ -1,3 +1,4 @@
+<h1>Welcome <%= @user.username %>!</h1>
 <% @songs.each do |song|%>
   <li>
     Title: <a href="/songs/<%= song.id %>"><%= song.title %></a>

@@ -37,12 +37,16 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id/edit' do
-    @users = User.find_by_id(params[:id])
-    if @users
+    @user = User.find_by_id(params[:id])
+    if @user
       erb :'users/edit'
     else
-      redirect '/users'
+      redirect to "/users/:id"
     end
+  end
+
+  get '/users/:id' do
+    redirect to '/songs'
   end
 
   patch '/users/:id' do
