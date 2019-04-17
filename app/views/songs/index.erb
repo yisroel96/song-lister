@@ -1,13 +1,22 @@
-<ul>
 <% @songs.each do |song|%>
   <li>
-    <a href="/songs/<%= song.id %>">Title: <%= song.title %></a>
-    Artist: <%= song.artist %>
-    Genre: <%= song.genre %>
+    Title: <a href="/songs/<%= song.id %>"><%= song.title %></a>
   </li>
 <% end %>
-</ul>
 
 <form method="get" action="/songs/new">
   <input type="submit" value="Create New Song">
+</form>
+
+<form method="get" action="/users/<%=@user.id%>/edit">
+  <input type="submit" value="Edit User">
+</form>
+
+<form action="/u/<%=@user.id%>" method="post">
+  <input type="hidden" value="delete" name="_method">
+  <input type="submit" value="Delete User">
+</form>
+
+<form method="get" action="/logout">
+  <input type="submit" value="Log Out">
 </form>

@@ -1,20 +1,33 @@
 class SongsController < ApplicationController
 
-  get '/songs' do #loads index page
-    @songs = Song.all
-    erb :'songs/index'
+  #loads index page
+  get '/songs' do
+    if logged_in?
+        @songs = Song.where(user_id:session[:user_id])
+        current_user
+        erb :"songs/index"
+    else
+        redirect '/'
+    end
   end
 
-  get '/songs/new' do #loads new form
+  #loads new form
+  get '/songs/new' do
     erb :'songs/new'
   end
 
-  post '/songs' do  #creates a song
-    @song = Song.create(params)
-    redirect to "/songs/#{@song.id}"
+  #loads edit form
+  get '/songs/:id/edit' do
+    @song = Song.find_by_id(params[:id])
+    if @song
+      erb :'songs/edit'
+    else
+      redirect '/songs'
+    end
   end
 
-  get '/songs/:id' do  #loads show page
+  #loads show page
+  get '/songs/:id' do
     @song = Song.find_by_id(params[:id])
     if @song
       erb :'songs/show'
@@ -23,16 +36,20 @@ class SongsController < ApplicationController
     end
   end
 
-  get '/songs/:id/edit' do #loads edit form
-     @song = Song.find_by_id(params[:id])
-     if @song
-       erb :'songs/edit'
-     else
-       redirect '/songs'
-     end
-   end
+  #creates a song
+  post '/songs' do
+    binding.pry
+    @song = Song.new(params[:title][:artist][:genre])
+    @song.user_id = session[:user_id]
+    if @song.save
+      redirect to "/songs/#{@song.id}"
+    else
+      redirect '/songs'
+    end
+  end
 
-  patch '/songs/:id' do  #updates a song
+  #updates a song
+  patch '/songs/:id' do
     # binding.pry
     @song = Song.find_by_id(params[:id])
     @song.title = params[:title]
@@ -42,7 +59,8 @@ class SongsController < ApplicationController
     redirect to "/songs/#{@song.id}"
   end
 
-  delete '/songs/:id' do #destroy action
+  #destroys a song
+  delete '/songs/:id' do
     # binding.pry
     @song = Song.find_by_id(params[:id])
     @song.delete
@@ -50,41 +68,3 @@ class SongsController < ApplicationController
   end
 
 end
-
-#   # GET: /songs
-#   get '/songs' do
-#     @songs =  Song.all
-#     erb :'/songs/index'
-#   end
-#
-#   # GET: /songs/new
-#   get '/songs/new' do
-#     @song = Song.create(params [:title] [:artist][:artist][:genre])
-#     erb :'/songs/new'
-#   end
-#
-#   # POST: /songs
-#   post '/songs' do
-#     redirect '/songs'
-#   end
-#
-#   # GET: /songs/5
-#   get '/songs/:id' do
-#     erb :'/songs/show'
-#   end
-#
-#   # GET: /songs/5/edit
-#   get '/songs/:id/edit' do
-#     erb :'/songs/edit'
-#   end
-#
-#   # PATCH: /songs/5
-#   patch '/songs/:id' do
-#     redirect '/songs/:id'
-#   end
-#
-#   # DELETE: /songs/5/delete
-#   delete '/songs/:id/delete' do
-#     redirect '/songs'
-#   end
-# end
