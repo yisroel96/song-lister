@@ -1,0 +1,11 @@
+<h1>found songs</h1>
+
+<% if @found_songs.empty? %>
+<h1>no results found!</h1>
+<% else %>
+<ul>
+  <% @found_songs.each do |song| %>
+  <li><%= song.title %></li>
+  <% end %>
+</ul>
+<% end %>

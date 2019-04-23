@@ -40,8 +40,21 @@ class SongsController < ApplicationController
   post '/songs' do
     @song = Song.new(params)
     @song.user_id = session[:user_id]
+    #current_user.songs << @song
+
+    # @user = current_user
+    # @user.songs << @song
+    # @users = @user.songs
+
+    # @user = User.create(params)
+    # @song = Song.new(params)
+    # @user.songs << @song
+    #
+    # @user.songs.build
+    # @user.songs.create
+
     if @song.save
-      #current_user.songs << @song
+
       redirect to "/songs/#{@song.id}"
     else
       redirect '/songs'

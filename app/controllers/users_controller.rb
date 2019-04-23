@@ -66,6 +66,17 @@ class UsersController < ApplicationController
       end
     end
 
+    get '/search' do
+      erb :'users/search'
+    end
+
+    post '/search' do
+      @search = params[:search]
+      @found_songs = Song.where("title like ?", "%#{@search}%")
+
+      erb :'users/search_results'
+    end
+
   #destroys a user
   delete '/users/:id' do
     # binding.pry

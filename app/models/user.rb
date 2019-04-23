@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :songs
+  has_many :songs, dependent: :destroy
 
   has_secure_password
 
